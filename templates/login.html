@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Sterilizer Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/all.min.css">
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --glass: rgba(26, 26, 26, 0.85);
+            --border: #333333;
+            --accent: #ff6600; 
+            --text: #eeeeee;
+            --label-color: #888888;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8f9fa;
+            --glass: rgba(255, 255, 255, 0.6);
+            --border: #dee2e6;
+            --accent: #ff6600;
+            --text: #212529;
+            --label-color: #666666;
+        }
+
+        /* Sinkronisasi Font Exo 2 */
+        * { font-family: 'Exo 2', sans-serif !important; }
+
+        body { 
+            background: url("{{ url_for('static', filename='backgroundlogin.png') }}") no-repeat center center;
+            background-size: cover;
+            color: var(--text); height: 100vh;
+            display: flex; align-items: center; justify-content: flex-end; padding-right: 0;
+            transition: 0.3s ease; overflow: hidden; position: relative;
+        }
+
+        .login-card {
+            background: var(--glass);
+            border: 1px solid var(--accent); border-radius: 0;
+            padding: 50px 80px 50px 90px; width: 100%; max-width: 550px;
+            height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-logo {
+            height: 80px; width: auto; margin-bottom: 20px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 102, 0, 0.4));
+        }
+
+        .system-title {
+            font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; 
+            margin-bottom: 35px; color: var(--accent); text-transform: uppercase;
+        }
+
+        .input-group-custom { text-align: left; margin-bottom: 25px; }
+        .input-group-custom label {
+            display: block; color: var(--label-color) !important;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; 
+            margin-bottom: 8px; letter-spacing: 1.5px;
+        }
+
+        .form-control-custom {
+            background: transparent !important; border: 1px solid var(--border) !important;
+            color: var(--text) !important; border-radius: 6px; padding: 12px 15px; 
+            width: 100%; outline: none; transition: 0.2s; font-weight: 600; text-align: left;
+        }
+
+        .form-control-custom:focus { border-color: var(--accent) !important; box-shadow: 0 0 10px rgba(255, 102, 0, 0.1); }
+
+        .btn-login {
+            background: var(--accent); color: #ffffff; font-weight: 800; 
+            padding: 15px; border-radius: 6px; border: none; 
+            text-transform: uppercase; width: 100%; transition: 0.2s;
+            letter-spacing: 2px;
+        }
+
+        .btn-login:hover { background: #e65c00; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3); }
+
+        /* Trigger Appearance di Pojok */
+        .appearance-trigger {
+            position: absolute; top: 40px; left: 40px; background: var(--glass);
+            border: 1px solid var(--border); color: var(--accent); padding: 10px 20px;
+            border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: 800;
+            letter-spacing: 1px; transition: 0.3s;
+        }
+        .appearance-trigger:hover { border-color: var(--accent); }
+
+        /* Modal Styles */
+        .modal-content { background: var(--glass); color: var(--text); border: 1px solid var(--border); border-radius: 15px; }
+        .theme-card {
+            cursor: pointer; border: 2px solid var(--border); border-radius: 10px;
+            padding: 20px; transition: 0.3s;
+        }
+        .theme-card:hover, .theme-card.active { border-color: var(--accent); background: rgba(255, 102, 0, 0.1); }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="appearance-trigger" data-bs-toggle="modal" data-bs-target="#themeModal">
+        APPEARANCE <i class="fas fa-palette ms-2"></i>
+    </div>
+
+    <div class="login-card text-center">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="login-logo">
+        
+        <div style="font-size: 0.7rem; font-weight: 900; letter-spacing: 4px; opacity: 0.4; margin-bottom: 10px;">SECURE GATEWAY</div>
+        <div class="system-title">STERILIZER HUB</div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="input-group-custom">
+                <label for="uInput">Operator ID</label>
+                <input type="text" id="uInput" class="form-control-custom" required autocomplete="off" placeholder="Enter Username">
+            </div>
+
+            <div class="input-group-custom">
+                <label for="pInput">Security Key</label>
+                <input type="password" id="pInput" class="form-control-custom" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" id="submitBtn" class="btn btn-login">
+                ESTABLISH CONNECTION <i class="fas fa-plug ms-2"></i>
+            </button>
+            
+            <div id="login-msg" class="mt-3 font-weight-bold" style="font-size: 0.75rem;"></div>
+        </form>
+
+        <div class="mt-5 opacity-30">
+            <small style="font-size: 0.65rem; letter-spacing: 2px; font-weight: 800;">STERILIZER MONITORING SYSTEM 1.0.0</small>
+        </div>
+    </div>
+
+    <div class="modal fade" id="themeModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold">Interface Style</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="theme-card" id="theme-dark-card" onclick="setTheme('dark')">
+                                <i class="fas fa-moon mb-3" style="font-size: 2rem; color: #ff6600;"></i>
+                                <div class="fw-bold">DARK MODE</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="theme-card" id="theme-light-card" onclick="setTheme('light')">
+                                <i class="fas fa-sun mb-3" style="font-size: 2rem; color: #ffcc00;"></i>
+                                <div class="fw-bold">LIGHT MODE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Logika Tema Terintegrasi
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // Visual feedback pada card modal
+            document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`theme-${theme}-card`).classList.add('active');
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('themeModal'));
+            if(modal) modal.hide();
+        }
+
+        function checkBan() {
+            const banEnd = parseInt(localStorage.getItem('login_ban_end') || 0);
+            if (banEnd > Date.now()) {
+                const remaining = Math.ceil((banEnd - Date.now()) / 1000);
+                const msg = document.getElementById('login-msg');
+                const btn = document.getElementById('submitBtn');
+                const inputs = document.querySelectorAll('.form-control-custom');
+                
+                msg.innerHTML = `<span style="color: #ff4d4d;">LOCKED OUT. WAIT ${remaining}s</span>`;
+                btn.disabled = true;
+                btn.style.opacity = 0.5;
+                inputs.forEach(i => i.disabled = true);
+                
+                setTimeout(checkBan, 1000);
+                return true;
+            } else {
+                // Enable UI if ban expired
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').style.opacity = 1;
+                document.querySelectorAll('.form-control-custom').forEach(i => i.disabled = false);
+                if(localStorage.getItem('login_ban_end') && document.getElementById('login-msg').innerText.includes('LOCKED')) {
+                    document.getElementById('login-msg').innerHTML = '';
+                    localStorage.removeItem('login_ban_end');
+                }
+                return false;
+            }
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            if (checkBan()) return;
+
+            const u = document.getElementById('uInput').value;
+            const p = document.getElementById('pInput').value;
+            const msg = document.getElementById('login-msg');
+
+            // Cek kredensial ke server (Database)
+            const response = await fetch('/api/check_login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({u: u, p: p})
+            });
+            const result = await response.json();
+
+            if (result.valid) {
+                // Reset counters on success
+                localStorage.removeItem('login_failed_count');
+                localStorage.removeItem('login_ban_level');
+                localStorage.removeItem('login_ban_end');
+
+                msg.innerHTML = "Authenticating...";
+                const form = document.createElement('form');
+                form.method = 'POST'; form.action = '/login';
+                const uF = document.createElement('input'); uF.type = 'hidden'; uF.name = 'u'; uF.value = u;
+                const pF = document.createElement('input'); pF.type = 'hidden'; pF.name = 'p'; pF.value = p;
+                form.appendChild(uF); form.appendChild(pF);
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                // Logic Ban Bertingkat
+                let count = parseInt(localStorage.getItem('login_failed_count') || 0) + 1;
+                let level = parseInt(localStorage.getItem('login_ban_level') || 0);
+                let threshold = (level === 0) ? 3 : 1; // 3x kesempatan awal, selanjutnya 1x
+
+                if (count >= threshold) {
+                    let duration = 30; // Level 0
+                    if (level === 1) duration = 60;
+                    else if (level >= 2) duration = 120;
+
+                    localStorage.setItem('login_ban_end', Date.now() + (duration * 1000));
+                    localStorage.setItem('login_ban_level', Math.min(level + 1, 2));
+                    localStorage.setItem('login_failed_count', 0);
+                    
+                    checkBan();
+                } else {
+                    localStorage.setItem('login_failed_count', count);
+                    const left = threshold - count;
+                    msg.innerHTML = `<span style="color: #ff4d4d;">INVALID CREDENTIALS (${left} attempts left)</span>`;
+                }
+            }
+        }
+
+        // Jalankan saat startup
+        window.onload = () => {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.body.setAttribute('data-theme', savedTheme);
+            checkBan();
+        };
+    </script>
+</body>
+</html>
