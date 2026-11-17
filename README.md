@@ -314,7 +314,9 @@ sterilizer_hub/
 │   ├── sterilizer-hub-icon-nobg.png
 │   ├── sterilizer-hub-logo-bg-dark.png
 │   ├── sterilizer-hub-logo-bg-white.png
-│   └── sterilizer-hub-logo-nobg.png
+│   ├── sterilizer-hub-logo-nobg.png
+│   ├── sterilizer-hub-logo-nobg-allwhite.png
+│   └── sterilizer-hub-logo-nobg-whitetext.png
 └── templates/                # Template Jinja2
     ├── index.html            # HMI Dashboard & Real-Time Chart
     └── login.html            # Antarmuka login dengan status lockout server

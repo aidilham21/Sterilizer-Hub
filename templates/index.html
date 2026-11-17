@@ -296,7 +296,7 @@
             </div>
             <div class="modal-body p-4">
                 <div class="text-center mb-4">
-                    <img id="aboutLogo" src="{{ url_for('static', filename='sterilizer-hub-logo-nobg.png') }}" alt="Sterilizer Hub Logo" style="max-height: 55px; max-width: 100%; object-fit: contain;">
+                    <img id="aboutLogo" src="{{ url_for('static', filename='sterilizer-hub-logo-nobg-whitetext.png') }}" alt="Sterilizer Hub Logo" style="max-height: 55px; max-width: 100%; object-fit: contain;">
                 </div>
                 <h6 class="fw-bold" style="color: var(--accent);">Group 1</h6>
                 <ul class="list-unstyled small mb-4" style="opacity: 0.8;">
@@ -370,7 +370,7 @@
         if (aboutLogo) {
             aboutLogo.src = theme === 'light'
                 ? "{{ url_for('static', filename='sterilizer-hub-logo-bg-white.png') }}"
-                : "{{ url_for('static', filename='sterilizer-hub-logo-nobg.png') }}";
+                : "{{ url_for('static', filename='sterilizer-hub-logo-nobg-whitetext.png') }}";
         }
 
         if (typeof chart !== 'undefined') {

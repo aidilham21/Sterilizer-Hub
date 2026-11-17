@@ -49,7 +49,7 @@
         }
 
         .login-logo {
-            max-height: 75px; width: auto; max-width: 280px; margin-bottom: 20px;
+            max-height: 85px; width: auto; max-width: 300px; margin-bottom: 20px;
             object-fit: contain;
             filter: drop-shadow(0 0 10px rgba(255, 102, 0, 0.35));
             transition: 0.3s ease;
@@ -109,7 +109,7 @@
     </div>
 
     <div class="login-card text-center">
-        <img id="loginBrandLogo" src="{{ url_for('static', filename='sterilizer-hub-logo-nobg.png') }}" alt="Sterilizer Hub Logo" class="login-logo">
+        <img id="loginBrandLogo" src="{{ url_for('static', filename='sterilizer-hub-logo-nobg-whitetext.png') }}" alt="Sterilizer Hub Logo" class="login-logo">
         
         <div style="font-size: 0.7rem; font-weight: 900; letter-spacing: 4px; opacity: 0.4; margin-bottom: 10px;">SECURE GATEWAY</div>
         <div class="system-title">STERILIZER HUB</div>
@@ -178,7 +178,7 @@
             if (logoEl) {
                 logoEl.src = theme === 'light' 
                     ? "{{ url_for('static', filename='sterilizer-hub-logo-bg-white.png') }}" 
-                    : "{{ url_for('static', filename='sterilizer-hub-logo-nobg.png') }}";
+                    : "{{ url_for('static', filename='sterilizer-hub-logo-nobg-whitetext.png') }}";
             }
 
             // Visual feedback pada card modal
