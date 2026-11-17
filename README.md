@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="static/sterilizer-hub-logo-bg-dark.png" alt="Sterilizer Hub Logo" width="520">
+</p>
+
 # Sterilizer Hub - IoT Autoclave Monitoring & Control System
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
@@ -303,9 +307,14 @@ sterilizer_hub/
 │   ├── sterilizer_hub.pdf    # Dokumentasi kalkulasi kompensasi & sirkuit
 │   ├── sterilizer_hub_schema.png # Gambar skematik rangkaian hardware
 │   └── .theia/launch.json    # Konfigurasi workspace Arduino IDE
-├── static/                   # Aset statis antarmuka web
+├── static/                   # Aset logo & grafis antarmuka web
 │   ├── backgroundlogin.png
-│   └── logo.png
+│   ├── sterilizer-hub-icon-bg-dark.png
+│   ├── sterilizer-hub-icon-bg-white.png
+│   ├── sterilizer-hub-icon-nobg.png
+│   ├── sterilizer-hub-logo-bg-dark.png
+│   ├── sterilizer-hub-logo-bg-white.png
+│   └── sterilizer-hub-logo-nobg.png
 └── templates/                # Template Jinja2
     ├── index.html            # HMI Dashboard & Real-Time Chart
     └── login.html            # Antarmuka login dengan status lockout server
