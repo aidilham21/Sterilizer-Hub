@@ -330,8 +330,8 @@ Proyek ini dilisensikan di bawah lisensi terbuka [MIT License](LICENSE).
 
 Dikembangkan oleh **Group 1**:
 - **Muh. Aidil Ilham** (Lead Developer)
-- **Aldi Rahmat**
 - **Janevirah Fauzi**
+- **Aldi Rahmat**
 - **Fitra Ramadhani**
 - **Novika Pitriani Nasution**
 
